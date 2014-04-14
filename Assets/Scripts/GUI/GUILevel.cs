@@ -38,10 +38,5 @@ public class GUILevel : State<GUIManager> {
 		ConstValue.level = int.Parse(go.name);
 		GUILoad.Instance().SetLoad(GUILoadGame.Instance());
 		GUIManager.It.GetFSM().ChangeState(GUILoad.Instance());
-
-		//Debug.Log(ConstValue.level);
-//		if(GameManager.It.GetFSM().CurrentState() == GameStart.Instance()){
-//			Messenger.Broadcast<int>(ConstValue.MSG_START_GAME, ConstValue.level);
-//		}
 	}
 }

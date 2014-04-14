@@ -15,12 +15,17 @@ public enum GameDoneState
 	GamePause
 }
 
+public enum GamePropsId {
+	Bomb = 0
+}
+
 public class ConstValue {
 	public const string RES_GUI_PATH	= "GUIPrefabs";
 	public const string GUI_LEVEL		= "Panel Level";
 	public const string GUI_LOAD		= "Panel Load";
 	public const string GUI_WIN			= "Panel Win";
 	public const string GUI_OVER		= "Panel Over";
+	public const string GUI_PLAYING		= "Panel Playing";
 
 	public const string RES_GAME_PATH	= "Prefabs";
 	public const string GAME_LIAN_PRE	= "lian_";
@@ -37,6 +42,7 @@ public class ConstValue {
 	public const string MSG_START_GAME		= "Start Game";
 	public const string MSG_GAME_DONE		= "Game Done";
 	public const string MSG_GAME_TO_LEVEL	= "Game To Level";
+	public const string MSG_USE_PROP		= "Use Prop";
 
 	public static float		BoxWidth;
 	public static float		BoxHeight;

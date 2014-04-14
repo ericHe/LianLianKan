@@ -9,9 +9,15 @@ public class GUIPlaying : State<GUIManager> {
 		return instance;
 	}
 
+	private PanelPlaying m_panelPlaying;
+
 	public override void Enter (GUIManager Entity)
 	{
-		Messenger.AddListener<int>(ConstValue.MSG_GAME_DONE, GameDone);
+		Messenger.AddListener<GameDoneState>(ConstValue.MSG_GAME_DONE, GameDone);
+
+		Object panel = ResourceMgr.Instance().LoadRes(ConstValue.RES_GUI_PATH, ConstValue.GUI_PLAYING);
+		GameObject gamePanel = GameTools.AddChild(Entity.UIRoot, panel);
+		m_panelPlaying = gamePanel.GetComponent<PanelPlaying>();
 	}
 	
 	public override void Execute (GUIManager Entity)
@@ -21,17 +27,24 @@ public class GUIPlaying : State<GUIManager> {
 	
 	public override void Exit (GUIManager Entity)
 	{
-		Messenger.RemoveListener<int>(ConstValue.MSG_GAME_DONE, GameDone);
+		Messenger.RemoveListener<GameDoneState>(ConstValue.MSG_GAME_DONE, GameDone);
+
+		GameObject.Destroy(m_panelPlaying.gameObject);
+		ResourceMgr.Instance().RemoveResByName(ConstValue.GUI_PLAYING);
 	}
 
-	void GameDone(int state){
+	void GameDone(GameDoneState state){
 		switch(state){
-		case (int)GameDoneState.GameOver:
+		case GameDoneState.GameOver:
 			Target.GetFSM().ChangeState(GUIOver.Instance());
 			break;
-		case (int)GameDoneState.GameWin:
+		case GameDoneState.GameWin:
 			Target.GetFSM().ChangeState(GUIWin.Instance());
 			break;
 		}
+	}
+
+	public void UseProp(GamePropsId propId){
+		Messenger.Broadcast(ConstValue.MSG_USE_PROP, propId);
 	}
 }

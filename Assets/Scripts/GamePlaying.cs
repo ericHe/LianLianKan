@@ -18,6 +18,8 @@ public class GamePlaying : State<GameManager> {
 	public override void Enter (GameManager Entity)
 	{
 		Messenger.AddListener(ConstValue.MSG_GAME_TO_LEVEL, GameToLevel);
+		Messenger.AddListener<GamePropsId>(ConstValue.MSG_USE_PROP, UseProp);
+
 		currentLevel = LoadLevel.CreateLevel(ConstValue.level);
 		boxPanel = GameTools.CreateGameObject<BoxPanel>();
 		boxPanel.Init();
@@ -39,12 +41,12 @@ public class GamePlaying : State<GameManager> {
 			if(boxPanel.bottomBox != null
 			   && (boxPanel.bottomBox.transform.position.y - ConstValue.BoxHeight/2) <= -ScreenInfo.h/2){
 				isPlaying = false;
-				Messenger.Broadcast(ConstValue.MSG_GAME_DONE, (int)GameDoneState.GameOver);
+				Messenger.Broadcast(ConstValue.MSG_GAME_DONE, GameDoneState.GameOver);
 			}
 			
 			if(boxPanel.isLoadDone && !boxPanel.canLink){
 				isPlaying = false;
-				Messenger.Broadcast(ConstValue.MSG_GAME_DONE, (int)GameDoneState.GameWin);
+				Messenger.Broadcast(ConstValue.MSG_GAME_DONE, GameDoneState.GameWin);
 			}
 		}
 	}
@@ -58,11 +60,20 @@ public class GamePlaying : State<GameManager> {
 	{
 		isPlaying = false;
 		Messenger.RemoveListener(ConstValue.MSG_GAME_TO_LEVEL, GameToLevel);
+		Messenger.RemoveListener<GamePropsId>(ConstValue.MSG_USE_PROP, UseProp);
 		GameObject.Destroy(boxPanel.gameObject);
 		GameObject.Destroy(bBanner);
 	}
 
 	void GameToLevel(){
 		Target.GetFSM().ChangeState(GameStart.Instance());
+	}
+
+	void UseProp(GamePropsId propId){
+		switch(propId){
+		case GamePropsId.Bomb:
+			Debug.Log("user bomb");
+			break;
+		}
 	}
 }
