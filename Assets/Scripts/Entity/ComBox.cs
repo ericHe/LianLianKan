@@ -18,4 +18,11 @@ public class ComBox : MonoBehaviour, IBox {
 		float yF = Random.Range(30f, 60f);
 		r.AddForce(new Vector2(xF, yF));
 	}
+
+	public void Explode(){
+		ParticleSystem ps = ExpParticleFactory.Instance().CreateExpParticel(transform.position);
+		//ps.transform.parent = transform.parent;
+		Destroy(gameObject);
+		ps.Play();
+	}
 }

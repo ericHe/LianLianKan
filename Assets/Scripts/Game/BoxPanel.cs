@@ -108,10 +108,12 @@ public class BoxPanel : MonoBehaviour {
 							List<Vector2> lineList = boxManager.LinkTwoBox(m_SelectBox, m_OtherBox);
 							if(lineList != null){
 								boxManager.RemoveBox(m_SelectBox);
-								Destroy(m_SelectBox.gameObject);
+								m_SelectBox.Explode();
+								//Destroy(m_SelectBox.gameObject);
 								m_SelectBox = null;
 								boxManager.RemoveBox(m_OtherBox);
-								Destroy(m_OtherBox.gameObject);
+								m_OtherBox.Explode();
+								//Destroy(m_OtherBox.gameObject);
 								m_OtherBox = null;
 								background.transform.localPosition = new Vector3(10f, 10f, 0f);
 								DrawLine(lineList);
