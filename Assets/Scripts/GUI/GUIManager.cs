@@ -1,0 +1,52 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class GUIManager : BaseGameEntity {
+	public static GUIManager It;
+
+	public GameObject UIRoot;
+
+	StateMachine<GUIManager> m_StateMachine;
+
+	void Awake(){
+		It = this;
+	}
+
+	void Start(){
+		// set id 
+		SetID((int)EntityID.GUIManager);
+		m_StateMachine = new StateMachine<GUIManager>(this);	
+		m_StateMachine.SetCurrentState(GUILevel.Instance());	
+		m_StateMachine.SetGlobalStateState(GUIGlobal.Instance());
+	}
+
+	void Update(){
+		m_StateMachine.SMUpdate();
+	}
+
+	public StateMachine<GUIManager> GetFSM (){
+		return m_StateMachine;
+	}
+
+	#region load Res
+	public void LoadGameRes(){
+		StartCoroutine("LoadGamePrefabs");
+	}
+
+	IEnumerator LoadGamePrefabs(){
+		yield return null;
+		for(int i=1; i<10; i++){
+			ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LIAN_PRE+i);
+		}
+		GameObject box = ResourceMgr.Instance().GetResFromName(ConstValue.GAME_LIAN_PRE+1) as GameObject;
+		ConstValue.BoxWidth = box.GetComponent<SpriteRenderer>().bounds.size.x;
+		ConstValue.BoxHeight = box.GetComponent<SpriteRenderer>().bounds.size.y;
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LINE_HEN);
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LINE_SHU);
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_BACKGROUND);
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_B_BANNER);
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_PART_PATH, ConstValue.GAME_BOX_EXP);
+		GUILoadGame.Instance().is_load = true;
+	}
+	#endregion
+}

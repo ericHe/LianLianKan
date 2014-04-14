@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="11" height="20" tilewidth="58" tileheight="58">
+ <tileset firstgid="1" name="lian" tilewidth="58" tileheight="58">
+  <image source="lian.png" width="174" height="174"/>
+ </tileset>
+ <layer name="块层 1" width="11" height="20">
+  <data encoding="base64" compression="zlib">
+   eJyVUosKBCAI07TX///wdbDRkOA4QTJda1pm/5kfD3g/Po5P1JrEX0vg87FviGkbvlDrqG/Uh2CH6HDsQzRUa8JpuCOFxyRP/o5e2FM8ekvhmjgT0ofeTz7V6si3guVKLDWOMgeTPWfbRUcIbkIX+bfoj6LX4exJZ5QFu2SdwDbB1nerfNQUJa9vTx2MqY1G/S515uu8mCf/tjsn/j3VsOzOs9t977T3X/tlHySIAmk=
+  </data>
+ </layer>
+</map>
