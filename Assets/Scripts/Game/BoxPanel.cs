@@ -15,6 +15,9 @@ public class BoxPanel : MonoBehaviour {
 	public bool				canLink		{ get; set; } //是否还有可以相连的
 	public bool				isLoadDone	{ get; set; } //是否加载完成全部关卡元素
 
+	public GamePropsId		usingPropID { get; set; } //使用的道具
+	public bool 			isUsingProp { get; set; }
+
 	private int				visibleRow = 10;
 	private BoxManager		boxManager;
 	private static Object	_lock;
@@ -40,6 +43,8 @@ public class BoxPanel : MonoBehaviour {
 		moveSpeed = -speed;
 		canLink = true;
 		isLoadDone = false;
+		usingPropID = GamePropsId.None;
+		isUsingProp = false;
 
 		boxPanelW = m_level.width * ConstValue.BoxWidth;
 		boxPanelH = m_level.height * ConstValue.BoxHeight;
@@ -98,38 +103,15 @@ public class BoxPanel : MonoBehaviour {
 			if(hit.collider != null)
 			{
 				ComBox hitBox = hit.transform.gameObject.GetComponent<ComBox>();
-				if(!hitBox.fall){
-					if(m_SelectBox == null){
-						m_SelectBox = hitBox;
-						background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
+				if(hitBox != null){
+					if(isUsingProp){
+						UsingProp(hitBox);
 					} else {
-						m_OtherBox = hitBox;
-						if(m_SelectBox != m_OtherBox && m_SelectBox.index == m_OtherBox.index){
-							List<Vector2> lineList = boxManager.LinkTwoBox(m_SelectBox, m_OtherBox);
-							if(lineList != null){
-								boxManager.RemoveBox(m_SelectBox);
-								m_SelectBox.Explode();
-								//Destroy(m_SelectBox.gameObject);
-								m_SelectBox = null;
-								boxManager.RemoveBox(m_OtherBox);
-								m_OtherBox.Explode();
-								//Destroy(m_OtherBox.gameObject);
-								m_OtherBox = null;
-								background.transform.localPosition = new Vector3(10f, 10f, 0f);
-								DrawLine(lineList);
-								CheckFallDown();
-								GetBottomBox();
-								canLink = CheckCanLian();
-							} else {
-								m_SelectBox = m_OtherBox;
-								background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
-							}
-						} else {
-							m_SelectBox = m_OtherBox;
-							background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
-						}
+						ClickComBox(hitBox);
 					}
+
 				}
+
 			}
 		}
 	}
@@ -146,6 +128,58 @@ public class BoxPanel : MonoBehaviour {
 			canLink = CheckCanLian();
 		}
 	}
+
+	#region Update
+	void UsingProp(ComBox hitBox){
+		GamePlaying.Instance().isPlaying = false;
+		background.transform.localPosition = new Vector3(10f, 10f, 0f);
+		switch(usingPropID){
+		case GamePropsId.Bomb:
+			GameObject bomb = Instantiate(m_resource.GetResFromName(ConstValue.GAME_PROP_BOMB),
+			            Vector3.zero,
+			            Quaternion.identity) as GameObject;
+			bomb.transform.parent = transform;
+			bomb.transform.localPosition = hitBox.gameObject.transform.localPosition;
+			bomb.GetComponent<PropBomb>().Init(hitBox);
+			break;
+		}
+	}
+
+	void ClickComBox(ComBox hitBox) {
+		if(!hitBox.fall){
+			if(m_SelectBox == null){
+				m_SelectBox = hitBox;
+				background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
+			} else {
+				m_OtherBox = hitBox;
+				if(m_SelectBox != m_OtherBox && m_SelectBox.index == m_OtherBox.index){
+					List<Vector2> lineList = boxManager.LinkTwoBox(m_SelectBox, m_OtherBox);
+					if(lineList != null){
+						m_SelectBox.Explode();
+						m_SelectBox = null;
+						m_OtherBox.Explode();
+						m_OtherBox = null;
+						background.transform.localPosition = new Vector3(10f, 10f, 0f);
+						DrawLine(lineList);
+						CheckPanelState();
+					} else {
+						m_SelectBox = m_OtherBox;
+						background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
+					}
+				} else {
+					m_SelectBox = m_OtherBox;
+					background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
+				}
+			}
+		}
+	}
+
+	public void CheckPanelState(){
+		CheckFallDown();
+		GetBottomBox();
+		canLink = CheckCanLian();
+	}
+	#endregion
 
 	#region box
 	public Vector3 GetPosFromXY(int x, int y){

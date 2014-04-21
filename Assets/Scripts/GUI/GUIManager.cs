@@ -46,6 +46,9 @@ public class GUIManager : BaseGameEntity {
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_BACKGROUND);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_B_BANNER);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PART_PATH, ConstValue.GAME_BOX_EXP);
+
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_BOMB);
+
 		GUILoadGame.Instance().is_load = true;
 	}
 	#endregion

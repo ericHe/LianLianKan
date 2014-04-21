@@ -20,6 +20,7 @@ public class ComBox : MonoBehaviour, IBox {
 	}
 
 	public void Explode(){
+		BoxManager.GetInstance().RemoveBox(this);
 		ParticleSystem ps = ExpParticleFactory.Instance().CreateExpParticel(transform.position);
 		//ps.transform.parent = transform.parent;
 		Destroy(gameObject);

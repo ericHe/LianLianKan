@@ -16,7 +16,8 @@ public enum GameDoneState
 }
 
 public enum GamePropsId {
-	Bomb = 0
+	None = 0,
+	Bomb
 }
 
 public class ConstValue {
@@ -34,6 +35,9 @@ public class ConstValue {
 	public const string GAME_BACKGROUND	= "background";
 	public const string GAME_B_BANNER	= "BottomBanner";
 
+	public const string RES_PROP_PATH	= RES_GAME_PATH + "/Props";
+	public const string GAME_PROP_BOMB	= "Prop Bomb";
+
 	public const string RES_PART_PATH	= "Particles";
 	public const string GAME_BOX_EXP	= "Particle Box Exp";
 
@@ -43,6 +47,8 @@ public class ConstValue {
 	public const string MSG_GAME_DONE		= "Game Done";
 	public const string MSG_GAME_TO_LEVEL	= "Game To Level";
 	public const string MSG_USE_PROP		= "Use Prop";
+
+	public const float BOTTOM_BAN_HEIGHT	= 1f;
 
 	public static float		BoxWidth;
 	public static float		BoxHeight;

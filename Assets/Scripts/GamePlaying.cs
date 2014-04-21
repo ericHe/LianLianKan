@@ -13,7 +13,7 @@ public class GamePlaying : State<GameManager> {
 	public BoxPanel		boxPanel		{ get; set; }
 	public GameObject	bBanner			{ get; set; }
 
-	private bool	isPlaying = false;
+	public bool			isPlaying 		{ get; set; }
 	
 	public override void Enter (GameManager Entity)
 	{
@@ -39,7 +39,7 @@ public class GamePlaying : State<GameManager> {
 	{
 		if(isPlaying){
 			if(boxPanel.bottomBox != null
-			   && (boxPanel.bottomBox.transform.position.y - ConstValue.BoxHeight/2) <= -ScreenInfo.h/2){
+			   && (boxPanel.bottomBox.transform.position.y - ConstValue.BoxHeight/2) <= -ScreenInfo.h/2+ConstValue.BOTTOM_BAN_HEIGHT){
 				isPlaying = false;
 				Messenger.Broadcast(ConstValue.MSG_GAME_DONE, GameDoneState.GameOver);
 			}
@@ -70,10 +70,7 @@ public class GamePlaying : State<GameManager> {
 	}
 
 	void UseProp(GamePropsId propId){
-		switch(propId){
-		case GamePropsId.Bomb:
-			Debug.Log("user bomb");
-			break;
-		}
+		boxPanel.isUsingProp = true;
+		boxPanel.usingPropID = propId;
 	}
 }
