@@ -142,6 +142,14 @@ public class BoxPanel : MonoBehaviour {
 			bomb.transform.localPosition = hitBox.gameObject.transform.localPosition;
 			bomb.GetComponent<PropBomb>().Init(hitBox);
 			break;
+		case GamePropsId.Rocket:
+			GameObject rocket = Instantiate(m_resource.GetResFromName(ConstValue.GAME_PROP_ROCKET),
+			                              Vector3.zero,
+			                              Quaternion.identity) as GameObject;
+			rocket.transform.parent = transform;
+			rocket.transform.localPosition = hitBox.gameObject.transform.localPosition;
+			rocket.GetComponent<PropRocket>().Init(hitBox);
+			break;
 		}
 	}
 

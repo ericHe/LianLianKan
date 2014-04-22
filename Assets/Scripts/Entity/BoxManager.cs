@@ -33,7 +33,6 @@ public class BoxManager {
 			if (m_BoxList.Find (p => p.x == x && p.y == y) != null) {
 				BoxObject tmp = m_BoxList.Find (p => p.x == x && p.y == y && p.gameObject != null);
 				if (value == null && tmp != null) {
-					//GameObject.Destroy(tmp.gameObject);
 					m_BoxList.Remove(tmp);
 				} else {
 					if (tmp != null) {

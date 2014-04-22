@@ -3,28 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using Jun.Message;
 
-public class PropBomb : MonoBehaviour {
+public class PropRocket : MonoBehaviour {
 	ComBox box;
-	void Start(){
-
+	// Use this for initialization
+	void Start () {
+	
 	}
-
+	
 	public void Init(ComBox box){
 		this.box = box;
 		Invoke("Explode", 1f);
 	}
-
+	
 	void Explode(){
 		Destroy(gameObject);
-		List<ComBox> neighborBoxs = BoxManager.GetInstance().GetNeighborBoxs(box);
-		box.Explode();
-		foreach(ComBox comBox in neighborBoxs){
+		List<ComBox> rowBoxs = BoxManager.GetInstance().GetBoxListByRow(box.y);
+		foreach(ComBox comBox in rowBoxs){
 			comBox.Explode();
 		}
 		GamePlaying.Instance().boxPanel.CheckPanelState();
 		GamePlaying.Instance().isPlaying = true;
 		GamePlaying.Instance().boxPanel.isUsingProp = false;
 		GamePlaying.Instance().boxPanel.usingPropID = GamePropsId.None;
-		Messenger.Broadcast(ConstValue.MSG_USE_PROP_SUC, GamePropsId.Bomb);
+		Messenger.Broadcast(ConstValue.MSG_USE_PROP_SUC, GamePropsId.Rocket);
 	}
 }

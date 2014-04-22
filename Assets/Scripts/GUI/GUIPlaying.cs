@@ -14,10 +14,12 @@ public class GUIPlaying : State<GUIManager> {
 	public override void Enter (GUIManager Entity)
 	{
 		Messenger.AddListener<GameDoneState>(ConstValue.MSG_GAME_DONE, GameDone);
+		Messenger.AddListener<GamePropsId>(ConstValue.MSG_USE_PROP_SUC, UsePropSuc);
 
 		Object panel = ResourceMgr.Instance().LoadRes(ConstValue.RES_GUI_PATH, ConstValue.GUI_PLAYING);
 		GameObject gamePanel = GameTools.AddChild(Entity.UIRoot, panel);
 		m_panelPlaying = gamePanel.GetComponent<PanelPlaying>();
+		m_panelPlaying.Init();
 	}
 	
 	public override void Execute (GUIManager Entity)
@@ -28,11 +30,13 @@ public class GUIPlaying : State<GUIManager> {
 	public override void Exit (GUIManager Entity)
 	{
 		Messenger.RemoveListener<GameDoneState>(ConstValue.MSG_GAME_DONE, GameDone);
+		Messenger.RemoveListener<GamePropsId>(ConstValue.MSG_USE_PROP_SUC, UsePropSuc);
 
 		GameObject.Destroy(m_panelPlaying.gameObject);
 		ResourceMgr.Instance().RemoveResByName(ConstValue.GUI_PLAYING);
 	}
 
+	#region msg
 	void GameDone(GameDoneState state){
 		switch(state){
 		case GameDoneState.GameOver:
@@ -44,7 +48,14 @@ public class GUIPlaying : State<GUIManager> {
 		}
 	}
 
+	void UsePropSuc(GamePropsId prop){
+		m_panelPlaying.UsePropSuc(prop);
+	}
+	#endregion
+
 	public void UseProp(GamePropsId propId){
 		Messenger.Broadcast(ConstValue.MSG_USE_PROP, propId);
 	}
+
+
 }

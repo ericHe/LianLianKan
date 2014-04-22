@@ -19,6 +19,7 @@ public class GamePlaying : State<GameManager> {
 	{
 		Messenger.AddListener(ConstValue.MSG_GAME_TO_LEVEL, GameToLevel);
 		Messenger.AddListener<GamePropsId>(ConstValue.MSG_USE_PROP, UseProp);
+		Messenger.AddListener<GamePropsId>(ConstValue.MSG_USE_PROP_CEL, UsePropCancel);
 
 		currentLevel = LoadLevel.CreateLevel(ConstValue.level);
 		boxPanel = GameTools.CreateGameObject<BoxPanel>();
@@ -61,6 +62,7 @@ public class GamePlaying : State<GameManager> {
 		isPlaying = false;
 		Messenger.RemoveListener(ConstValue.MSG_GAME_TO_LEVEL, GameToLevel);
 		Messenger.RemoveListener<GamePropsId>(ConstValue.MSG_USE_PROP, UseProp);
+		Messenger.RemoveListener<GamePropsId>(ConstValue.MSG_USE_PROP_CEL, UsePropCancel);
 		GameObject.Destroy(boxPanel.gameObject);
 		GameObject.Destroy(bBanner);
 	}
@@ -72,5 +74,11 @@ public class GamePlaying : State<GameManager> {
 	void UseProp(GamePropsId propId){
 		boxPanel.isUsingProp = true;
 		boxPanel.usingPropID = propId;
+	}
+
+	void UsePropCancel(GamePropsId propId){
+		isPlaying = true;
+		boxPanel.isUsingProp = false;
+		boxPanel.usingPropID = GamePropsId.None;
 	}
 }
