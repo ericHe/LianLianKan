@@ -169,12 +169,15 @@ public class BoxPanel : MonoBehaviour {
 						m_OtherBox = null;
 						background.transform.localPosition = new Vector3(10f, 10f, 0f);
 						DrawLine(lineList);
+						GameStaticData.Combo += 1;
 						CheckPanelState();
 					} else {
+						GameStaticData.Combo = 0;
 						m_SelectBox = m_OtherBox;
 						background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
 					}
 				} else {
+					GameStaticData.Combo = 0;
 					m_SelectBox = m_OtherBox;
 					background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
 				}

@@ -6,6 +6,7 @@ public class PanelPlaying : MonoBehaviour {
 
 	public PropsSprite bombBtn;
 	public PropsSprite rocketBtn;
+	public UILabel comboNumLabel;
 
 	private GamePropsId currentProp = GamePropsId.None;
 
@@ -15,8 +16,9 @@ public class PanelPlaying : MonoBehaviour {
 	}
 
 	public void Init(){
-		bombBtn.Num = 4;
+		bombBtn.Num = 1;
 		rocketBtn.Num = 5;
+		ChangeComboNum();
 	}
 
 	void BombBtnClick(GameObject go){
@@ -71,5 +73,20 @@ public class PanelPlaying : MonoBehaviour {
 			rocketBtn.Num -= 1;
 			break;
 		}
+	}
+
+	public void AddPropNum(GamePropsId prop, int num = 1){
+		switch(prop){
+		case GamePropsId.Bomb:
+			bombBtn.Num += num;
+			break;
+		case GamePropsId.Rocket:
+			rocketBtn.Num += num;
+			break;
+		}
+	}
+
+	public void ChangeComboNum(){
+		comboNumLabel.text = GameStaticData.Combo.ToString();
 	}
 }

@@ -15,6 +15,7 @@ public class GUIPlaying : State<GUIManager> {
 	{
 		Messenger.AddListener<GameDoneState>(ConstValue.MSG_GAME_DONE, GameDone);
 		Messenger.AddListener<GamePropsId>(ConstValue.MSG_USE_PROP_SUC, UsePropSuc);
+		GameStaticData.Combo = 0;
 
 		Object panel = ResourceMgr.Instance().LoadRes(ConstValue.RES_GUI_PATH, ConstValue.GUI_PLAYING);
 		GameObject gamePanel = GameTools.AddChild(Entity.UIRoot, panel);
@@ -33,6 +34,7 @@ public class GUIPlaying : State<GUIManager> {
 		Messenger.RemoveListener<GamePropsId>(ConstValue.MSG_USE_PROP_SUC, UsePropSuc);
 
 		GameObject.Destroy(m_panelPlaying.gameObject);
+		m_panelPlaying = null;
 		ResourceMgr.Instance().RemoveResByName(ConstValue.GUI_PLAYING);
 	}
 
@@ -57,5 +59,14 @@ public class GUIPlaying : State<GUIManager> {
 		Messenger.Broadcast(ConstValue.MSG_USE_PROP, propId);
 	}
 
+	public void AddPropNum(GamePropsId prop, int num = 1){
+		if(m_panelPlaying != null)
+			m_panelPlaying.AddPropNum(prop, num);
+	}
+
+	public void ChangeComboNum(){
+		if(m_panelPlaying != null)
+			m_panelPlaying.ChangeComboNum();
+	}
 
 }
