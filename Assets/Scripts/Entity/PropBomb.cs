@@ -5,6 +5,7 @@ using Jun.Message;
 
 public class PropBomb : MonoBehaviour {
 	ComBox box;
+	GameObject exp;
 	void Start(){
 
 	}
@@ -15,7 +16,13 @@ public class PropBomb : MonoBehaviour {
 	}
 
 	void Explode(){
-		Destroy(gameObject);
+		gameObject.SetActive(false);
+		exp = GameObject.Instantiate(ResourceMgr.Instance().GetResFromName(ConstValue.GAME_BOMB_EXP),
+		                                        transform.position, Quaternion.identity) as GameObject;
+		ParticleSystem ps = exp.GetComponent<ParticleSystem>();
+		ps.Play();
+		Invoke("DestoryExp", 1f);
+
 		List<ComBox> neighborBoxs = BoxManager.GetInstance().GetNeighborBoxs(box);
 		box.Explode();
 		foreach(ComBox comBox in neighborBoxs){
@@ -26,5 +33,10 @@ public class PropBomb : MonoBehaviour {
 		GamePlaying.Instance().boxPanel.isUsingProp = false;
 		GamePlaying.Instance().boxPanel.usingPropID = GamePropsId.None;
 		Messenger.Broadcast(ConstValue.MSG_USE_PROP_SUC, GamePropsId.Bomb);
+	}
+
+	void DestoryExp(){
+		Destroy(exp);
+		Destroy(gameObject);
 	}
 }

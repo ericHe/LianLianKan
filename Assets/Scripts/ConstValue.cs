@@ -42,6 +42,8 @@ public class ConstValue {
 
 	public const string RES_PART_PATH	= "Particles";
 	public const string GAME_BOX_EXP	= "Particle Box Exp";
+	public const string GAME_BOMB_EXP	= "Particle Bomb Exp";
+	public const string GAME_ROCKET_TR	= "Prop Rocket Trail";
 
 	public const string PRE_CUR_LEVEL	= "Current Level";
 

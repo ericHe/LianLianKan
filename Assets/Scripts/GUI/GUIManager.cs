@@ -35,7 +35,7 @@ public class GUIManager : BaseGameEntity {
 
 	IEnumerator LoadGamePrefabs(){
 		yield return null;
-		for(int i=1; i<10; i++){
+		for(int i=1; i<11; i++){
 			ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LIAN_PRE+i);
 		}
 		GameObject box = ResourceMgr.Instance().GetResFromName(ConstValue.GAME_LIAN_PRE+1) as GameObject;
@@ -45,7 +45,10 @@ public class GUIManager : BaseGameEntity {
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LINE_SHU);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_BACKGROUND);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_B_BANNER);
+
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PART_PATH, ConstValue.GAME_BOX_EXP);
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_PART_PATH, ConstValue.GAME_BOMB_EXP);
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_PART_PATH, ConstValue.GAME_ROCKET_TR);
 
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_BOMB);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_ROCKET);

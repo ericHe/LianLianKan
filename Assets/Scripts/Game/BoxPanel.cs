@@ -154,7 +154,7 @@ public class BoxPanel : MonoBehaviour {
 	}
 
 	void ClickComBox(ComBox hitBox) {
-		if(!hitBox.fall){
+		if(hitBox.index != 10 && !hitBox.fall){
 			if(m_SelectBox == null){
 				m_SelectBox = hitBox;
 				background.transform.localPosition = m_SelectBox.gameObject.transform.localPosition;
