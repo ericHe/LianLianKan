@@ -16,6 +16,7 @@ public class GameStart : State<GameManager> {
 	
 	public override void Execute (GameManager Entity)
 	{
+
 	}
 	
 	public override void Exit (GameManager Entity)
