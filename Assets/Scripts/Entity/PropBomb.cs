@@ -29,7 +29,9 @@ public class PropBomb : MonoBehaviour {
 			comBox.Explode();
 		}
 		GamePlaying.Instance().boxPanel.CheckPanelState();
+		GamePlaying.Instance ().boxPanel.BackMoveSpeed ();
 		GamePlaying.Instance().isPlaying = true;
+		GamePlaying.Instance ().boxPanel.m_CanTouch = true;
 		GamePlaying.Instance().boxPanel.isUsingProp = false;
 		GamePlaying.Instance().boxPanel.usingPropID = GamePropsId.None;
 		Messenger.Broadcast(ConstValue.MSG_USE_PROP_SUC, GamePropsId.Bomb);

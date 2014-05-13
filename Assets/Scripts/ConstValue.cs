@@ -18,7 +18,8 @@ public enum GameDoneState
 public enum GamePropsId {
 	None = 0,
 	Bomb,
-	Rocket
+	Rocket,
+	Shock
 }
 
 public class ConstValue {
@@ -39,6 +40,7 @@ public class ConstValue {
 	public const string RES_PROP_PATH	= RES_GAME_PATH + "/Props";
 	public const string GAME_PROP_BOMB	= "Prop Bomb";
 	public const string GAME_PROP_ROCKET= "Prop Rocket";
+	public const string GAME_PROP_SHOCK	= "Prop Shock";
 
 	public const string RES_PART_PATH	= "Particles";
 	public const string GAME_BOX_EXP	= "Particle Box Exp";

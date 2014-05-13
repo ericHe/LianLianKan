@@ -17,6 +17,7 @@ public class BoxPanel : MonoBehaviour {
 
 	public GamePropsId		usingPropID { get; set; } //使用的道具
 	public bool 			isUsingProp { get; set; }
+	public bool				m_CanTouch 	{ get; set; }
 
 	private int				visibleRow = 10;
 	private BoxManager		boxManager;
@@ -45,6 +46,7 @@ public class BoxPanel : MonoBehaviour {
 		isLoadDone = false;
 		usingPropID = GamePropsId.None;
 		isUsingProp = false;
+		m_CanTouch = true;
 
 		boxPanelW = m_level.width * ConstValue.BoxWidth;
 		boxPanelH = m_level.height * ConstValue.BoxHeight;
@@ -96,7 +98,7 @@ public class BoxPanel : MonoBehaviour {
 	}
 
 	public void MyUpdate(){
-		if (Input.GetMouseButtonDown(0))	
+		if (m_CanTouch && Input.GetMouseButtonDown(0))	
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -129,12 +131,18 @@ public class BoxPanel : MonoBehaviour {
 		}
 	}
 
+	public void SetMoveSpeed(float sp){
+		moveSpeed = sp;
+	}
+
 	#region Update
 	void UsingProp(ComBox hitBox){
-		GamePlaying.Instance().isPlaying = false;
+		GamePlaying.Instance().isPlaying = true;
+		m_CanTouch = false;
 		background.transform.localPosition = new Vector3(10f, 10f, 0f);
 		switch(usingPropID){
 		case GamePropsId.Bomb:
+			SetMoveSpeed(0f);
 			GameObject bomb = Instantiate(m_resource.GetResFromName(ConstValue.GAME_PROP_BOMB),
 			            Vector3.zero,
 			            Quaternion.identity) as GameObject;
@@ -143,6 +151,7 @@ public class BoxPanel : MonoBehaviour {
 			bomb.GetComponent<PropBomb>().Init(hitBox);
 			break;
 		case GamePropsId.Rocket:
+			SetMoveSpeed(0f);
 			GameObject rocket = Instantiate(m_resource.GetResFromName(ConstValue.GAME_PROP_ROCKET),
 			                              Vector3.zero,
 			                              Quaternion.identity) as GameObject;
@@ -150,7 +159,20 @@ public class BoxPanel : MonoBehaviour {
 			rocket.transform.localPosition = hitBox.gameObject.transform.localPosition;
 			rocket.GetComponent<PropRocket>().Init(hitBox);
 			break;
+		case GamePropsId.Shock:
+			GameObject shock = Instantiate(m_resource.GetResFromName(ConstValue.GAME_PROP_SHOCK),
+			                               Vector3.zero,
+			                               Quaternion.identity) as GameObject;
+			shock.transform.parent = transform;
+			shock.transform.position = new Vector3(0f, -ScreenInfo.h/2 + ConstValue.BOTTOM_BAN_HEIGHT, 0f);
+			SetMoveSpeed(0.2f);
+			Invoke("BackMoveSpeed", 0.5f);
+			break;
 		}
+	}
+
+	public void BackMoveSpeed(){
+		SetMoveSpeed (-speed);
 	}
 
 	void ClickComBox(ComBox hitBox) {

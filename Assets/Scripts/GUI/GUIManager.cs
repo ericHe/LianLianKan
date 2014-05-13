@@ -52,6 +52,7 @@ public class GUIManager : BaseGameEntity {
 
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_BOMB);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_ROCKET);
+		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_SHOCK);
 
 		GUILoadGame.Instance().is_load = true;
 	}
