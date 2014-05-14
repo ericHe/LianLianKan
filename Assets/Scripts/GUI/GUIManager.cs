@@ -38,6 +38,7 @@ public class GUIManager : BaseGameEntity {
 		for(int i=1; i<11; i++){
 			ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LIAN_PRE+i);
 		}
+
 		GameObject box = ResourceMgr.Instance().GetResFromName(ConstValue.GAME_LIAN_PRE+1) as GameObject;
 		ConstValue.BoxWidth = box.GetComponent<SpriteRenderer>().bounds.size.x;
 		ConstValue.BoxHeight = box.GetComponent<SpriteRenderer>().bounds.size.y;

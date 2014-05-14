@@ -5,10 +5,30 @@ public class ComBox : MonoBehaviour, IBox {
 	public int		index		{ get; set; }
 	public int		x			{ get; set; }
 	public int		y			{ get; set; }
+	// 17 冰块
+	private int		m_ice;
+	public int		ice {
+		get {
+			return m_ice;
+		}
+		set {
+			m_ice = value;
+			if(value > 0)
+				iceSprite.sprite.name = "lianlian_"+value;
+			else
+				iceSprite.gameObject.SetActive(false);
+		}
+	}
 
 	public bool		link		{ get; set; } //是否有链接
 	public bool		check		{ get; set; } //是否检测过了
 	public bool		fall		{ get; set; } //是否正在掉落
+
+	public SpriteRenderer iceSprite;
+
+	void start(){
+
+	}
 
 	public void FallDown(){
 		fall = true;

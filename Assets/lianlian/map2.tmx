@@ -3,9 +3,17 @@
  <tileset firstgid="1" name="lian" tilewidth="58" tileheight="58">
   <image source="lian.png" width="232" height="232"/>
  </tileset>
+ <tileset firstgid="17" name="paopaolist" tilewidth="58" tileheight="58">
+  <image source="paopaolist.png" width="58" height="58"/>
+ </tileset>
  <layer name="块层 1" width="9" height="15">
   <data encoding="base64" compression="zlib">
    eJyNkAsKwDAIQ13Hutbe/76rECELOCaIrxJ/NTO7xE047Nju2+f2BY7cTZqJ2IlNmPWd2AtNxdHzRA9H7MhV+jTW8A554wLrbv6xp+PdMCvqh8zi2lbwiT781032SR72Nr0x71jS8689/asBxA==
+  </data>
+ </layer>
+ <layer name="meta" width="9" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYEAAQQb6AkrsE0SjqWEmtQCpbiCkfqD8BACk8ACJ
   </data>
  </layer>
 </map>

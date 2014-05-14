@@ -86,6 +86,7 @@ public class BoxPanel : MonoBehaviour {
 						boxClone.transform.position += transform.position;
 						ComBox cb = boxClone.GetComponent<ComBox>();
 						cb.index = m_level.data[index];
+						cb.ice = m_level.meta[index];
 						cb.x = j;
 						cb.y = i;
 						cb.fall = false;

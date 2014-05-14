@@ -8,38 +8,7 @@
         <key>verbose</key>
         <false/>
         <key>autoSDSettings</key>
-        <array>
-            <struct type="AutoSDSettings">
-                <key>scale</key>
-                <double>1</double>
-                <key>extension</key>
-                <string></string>
-                <key>acceptFractionalValues</key>
-                <false/>
-                <key>maxTextureSize</key>
-                <QSize>
-                    <key>width</key>
-                    <int>-1</int>
-                    <key>height</key>
-                    <int>-1</int>
-                </QSize>
-            </struct>
-            <struct type="AutoSDSettings">
-                <key>scale</key>
-                <double>1</double>
-                <key>extension</key>
-                <string></string>
-                <key>acceptFractionalValues</key>
-                <false/>
-                <key>maxTextureSize</key>
-                <QSize>
-                    <key>width</key>
-                    <int>-1</int>
-                    <key>height</key>
-                    <int>-1</int>
-                </QSize>
-            </struct>
-        </array>
+        <array/>
         <key>allowRotation</key>
         <true/>
         <key>quiet</key>
@@ -53,7 +22,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>lian.png</filename>
+        <filename>paopaolist.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -107,7 +76,7 @@
             <key>sizeConstraints</key>
             <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
-            <true/>
+            <false/>
             <key>forceWordAligned</key>
             <false/>
             <key>maxRects</key>
@@ -130,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>lian.java</filename>
+            <filename>paopao.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -142,7 +111,7 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename></filename>
+        <filename>paopao.plist</filename>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -177,16 +146,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>101.png</filename>
-            <filename>102.png</filename>
-            <filename>103.png</filename>
-            <filename>104.png</filename>
-            <filename>105.png</filename>
-            <filename>106.png</filename>
-            <filename>107.png</filename>
-            <filename>108.png</filename>
-            <filename>109.png</filename>
-            <filename>111.png</filename>
+            <filename>paopao.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
