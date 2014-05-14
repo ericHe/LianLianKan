@@ -168,6 +168,15 @@ public class BoxPanel : MonoBehaviour {
 			SetMoveSpeed(0.2f);
 			Invoke("BackMoveSpeed", 0.5f);
 			break;
+		case GamePropsId.Same:
+			SetMoveSpeed(0f);
+			GameObject same = Instantiate(m_resource.GetResFromName(ConstValue.GAME_PROP_SAME),
+			                                Vector3.zero,
+			                                Quaternion.identity) as GameObject;
+			same.transform.parent = transform;
+			same.transform.localPosition = hitBox.gameObject.transform.localPosition;
+			same.GetComponent<PropSame>().Init(hitBox);
+			break;
 		}
 	}
 

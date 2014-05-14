@@ -7,6 +7,7 @@ public class PanelPlaying : MonoBehaviour {
 	public PropsSprite bombBtn;
 	public PropsSprite rocketBtn;
 	public PropsSprite shockBtn;
+	public PropsSprite sameBtn;
 	public UILabel comboNumLabel;
 
 	private GamePropsId currentProp = GamePropsId.None;
@@ -15,12 +16,14 @@ public class PanelPlaying : MonoBehaviour {
 		UIEventListener.Get(bombBtn.gameObject).onClick 	= BombBtnClick;
 		UIEventListener.Get(rocketBtn.gameObject).onClick 	= RocketBtnClick;
 		UIEventListener.Get (shockBtn.gameObject).onClick 	= ShockBtnClick;
+		UIEventListener.Get (sameBtn.gameObject).onClick 	= sameBtnClick;
 	}
 
 	public void Init(){
 		bombBtn.Num = 1;
 		rocketBtn.Num = 5;
 		shockBtn.Num = 5;
+		sameBtn.Num = 5;
 		ChangeComboNum();
 	}
 
@@ -66,6 +69,20 @@ public class PanelPlaying : MonoBehaviour {
 		}
 	}
 
+	void sameBtnClick(GameObject go){
+		if(currentProp == GamePropsId.Same){
+			sameBtn.State = PropsSprite.PropState.Default;
+			Messenger.Broadcast(ConstValue.MSG_USE_PROP_CEL, GamePropsId.Same);
+			ChangeCurrentProp(GamePropsId.None);
+		} else {
+			if(sameBtn.Num > 0){
+				ChangeCurrentProp(GamePropsId.Same);
+				sameBtn.State = PropsSprite.PropState.Click;
+				GUIPlaying.Instance().UseProp(GamePropsId.Same);
+			}
+		}
+	}
+
 	void ChangeCurrentProp(GamePropsId prop){
 		if(currentProp != GamePropsId.None){
 			switch(currentProp){
@@ -77,6 +94,9 @@ public class PanelPlaying : MonoBehaviour {
 				break;
 			case GamePropsId.Shock:
 				shockBtn.State = PropsSprite.PropState.Default;
+				break;
+			case GamePropsId.Same:
+				sameBtn.State = PropsSprite.PropState.Default;
 				break;
 			}
 		}
@@ -95,6 +115,9 @@ public class PanelPlaying : MonoBehaviour {
 		case GamePropsId.Shock:
 			shockBtn.Num -= 1;
 			break;
+		case GamePropsId.Same:
+			sameBtn.Num -= 1;
+			break;
 		}
 	}
 
@@ -108,6 +131,9 @@ public class PanelPlaying : MonoBehaviour {
 			break;
 		case GamePropsId.Shock:
 			shockBtn.Num += num;
+			break;
+		case GamePropsId.Same:
+			sameBtn.Num += num;
 			break;
 		}
 	}

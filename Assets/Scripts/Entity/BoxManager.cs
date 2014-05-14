@@ -91,6 +91,7 @@ public class BoxManager {
 		return bbs;
 	}
 
+	// 取邻居8个方块
 	public List<ComBox> GetNeighborBoxs(ComBox box){
 		List<ComBox> boxs = new List<ComBox>();
 		ComBox boxTemp = null;

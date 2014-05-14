@@ -19,7 +19,8 @@ public enum GamePropsId {
 	None = 0,
 	Bomb,
 	Rocket,
-	Shock
+	Shock,
+	Same
 }
 
 public class ConstValue {
@@ -41,6 +42,7 @@ public class ConstValue {
 	public const string GAME_PROP_BOMB	= "Prop Bomb";
 	public const string GAME_PROP_ROCKET= "Prop Rocket";
 	public const string GAME_PROP_SHOCK	= "Prop Shock";
+	public const string GAME_PROP_SAME	= "Prop Same";
 
 	public const string RES_PART_PATH	= "Particles";
 	public const string GAME_BOX_EXP	= "Particle Box Exp";
