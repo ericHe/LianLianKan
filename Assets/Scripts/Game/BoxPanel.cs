@@ -29,6 +29,7 @@ public class BoxPanel : MonoBehaviour {
 	private ComBox			m_SelectBox;
 	private ComBox			m_OtherBox;
 	private GameObject		background;
+	private GameObject		boss;
 
 	private ParticleSystem boxExp1;
 	private ParticleSystem boxExp2;
@@ -74,6 +75,21 @@ public class BoxPanel : MonoBehaviour {
 	public void InitBoxs(int downRow, int numRow){
 		lock(_lock) {
 			topRow = downRow - numRow + 1;
+			if(topRow == 0){
+				//加载banner和boss
+				GameObject banner = Instantiate(m_resource.GetResFromName(ConstValue.GAME_T_BANNER),
+				                                Vector3.zero,
+				                                Quaternion.identity) as GameObject;
+				banner.transform.parent = transform;
+				banner.transform.position = new Vector3(0, GetTopPosition()+ConstValue.TopBannerHeight/2, 0);
+				if(ConstValue.currentLevel.boss > 0){
+					boss = Instantiate(m_resource.GetResFromName(ConstValue.bosses[ConstValue.currentLevel.boss]),
+				                                Vector3.zero, Quaternion.identity) as GameObject;
+					boss.transform.parent = transform;
+					boss.transform.position = new Vector3(0, banner.transform.position.y+ConstValue.BossHeight/2, 0);
+					InvokeRepeating("BossFight", 1f, 3f);
+				}
+			}
 			for(int i=downRow; i>=topRow; i--){
 				for(int j=0; j<m_level.width; j++){
 					int index = i*m_level.width+j;
@@ -112,9 +128,7 @@ public class BoxPanel : MonoBehaviour {
 					} else {
 						ClickComBox(hitBox);
 					}
-
 				}
-
 			}
 		}
 	}
@@ -130,6 +144,12 @@ public class BoxPanel : MonoBehaviour {
 			isLoadDone = true;
 			canLink = CheckCanLian();
 		}
+	}
+
+	void BossFight(){
+		BossEntity be = boss.GetComponent<BossEntity>();
+		be.AddBoxFight();
+		//bottomRow = boxManager.GetBottomNullRow();
 	}
 
 	public void SetMoveSpeed(float sp){

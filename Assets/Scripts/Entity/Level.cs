@@ -6,5 +6,6 @@ public class Level {
 	public int 		level	{ get; set; }
 	public int 		height	{ get; set; }
 	public int		width	{ get; set; }
+	public int		boss	{ get; set; }
 }
 

@@ -35,6 +35,9 @@ public class GUIManager : BaseGameEntity {
 
 	IEnumerator LoadGamePrefabs(){
 		yield return null;
+
+		ConstValue.currentLevel = LoadLevel.CreateLevel(ConstValue.level);
+
 		for(int i=1; i<11; i++){
 			ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LIAN_PRE+i);
 		}
@@ -46,6 +49,8 @@ public class GUIManager : BaseGameEntity {
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_LINE_SHU);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_BACKGROUND);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_B_BANNER);
+		GameObject topBanner = ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.GAME_T_BANNER) as GameObject;
+		ConstValue.TopBannerHeight = topBanner.GetComponent<SpriteRenderer>().bounds.size.y;
 
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PART_PATH, ConstValue.GAME_BOX_EXP);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PART_PATH, ConstValue.GAME_BOMB_EXP);
@@ -55,6 +60,11 @@ public class GUIManager : BaseGameEntity {
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_ROCKET);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_SHOCK);
 		ResourceMgr.Instance().LoadRes(ConstValue.RES_PROP_PATH, ConstValue.GAME_PROP_SAME);
+
+		if(ConstValue.currentLevel.boss > 0){
+			GameObject boss = ResourceMgr.Instance().LoadRes(ConstValue.RES_GAME_PATH, ConstValue.bosses[ConstValue.currentLevel.boss]) as GameObject;
+			ConstValue.BossHeight = boss.GetComponent<SpriteRenderer>().bounds.size.y;
+		}
 
 		GUILoadGame.Instance().is_load = true;
 	}

@@ -63,6 +63,7 @@ public class BoxManager {
 		this[box.x, box.y] = null;
 	}
 
+	//取有方块的最下面一行
 	public ComBox GetBottomBox ()
 	{
 		if (m_BoxList.Count == 0) {
@@ -105,6 +106,37 @@ public class BoxManager {
 		if((boxTemp = this[box.x+1, box.y+1]) != null) boxs.Add(boxTemp);
 		return boxs;
 	}
+
+	//通过x,y判断邻居是否为空 null返回true
+	public bool IsNullNeightBoxs(int x, int y){
+		if(this[x-1, y-1] != null) return false;
+		if(this[x, y-1] != null) return false;
+		if(this[x+1, y-1] != null) return false;
+		if(this[x-1, y] != null) return false;
+		if(this[x+1, y] != null) return false;
+		if(this[x-1, y+1] != null) return false;
+		if(this[x, y+1] != null) return false;
+		if(this[x+1, y+1] != null) return false;
+		return true;
+	}
+
+	// 取可以放置方块的空位置
+	public List<Vector2> GetTwoNullPosition(){
+		List<Vector2> list = new List<Vector2>();
+		if(m_BoxList.Count == 0) return list;
+		IOrderedEnumerable<BoxObject> order = m_BoxList.OrderBy (p => p.y);
+		BoxObject small = order.FirstOrDefault();
+		BoxObject big = order.LastOrDefault();
+		Debug.Log("small big "+small.y + "," + big.y);
+		for(int y = small.y; y <= big.y + 1; y++){
+			for(int x = 1; x < levelWidth-1; x++){
+				if(this[x, y] == null && !IsNullNeightBoxs(x, y))
+					list.Add(new Vector2(x, y));
+			}
+		}
+		return list;
+	}
+
 
 	//取和当前box相同类型的box, 不包括自己
 	public List<ComBox> GetSameBoxs(ComBox box){

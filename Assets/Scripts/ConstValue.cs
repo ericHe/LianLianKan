@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //id
 public enum EntityID
@@ -37,6 +38,8 @@ public class ConstValue {
 	public const string GAME_LINE_SHU	= "shu_line";
 	public const string GAME_BACKGROUND	= "background";
 	public const string GAME_B_BANNER	= "BottomBanner";
+	public const string GAME_T_BANNER	= "Top Banner";
+	public const string GAME_BOSS_FIRST	= "Boss First";
 
 	public const string RES_PROP_PATH	= RES_GAME_PATH + "/Props";
 	public const string GAME_PROP_BOMB	= "Prop Bomb";
@@ -62,7 +65,14 @@ public class ConstValue {
 
 	public static float		BoxWidth;
 	public static float		BoxHeight;
+	public static float		TopBannerHeight;
+	public static float		BossHeight;
 
 	public static int		level;
+	public static Level		currentLevel;
 
+	public static Dictionary<int, string> bosses = new Dictionary<int, string>()
+	{
+		{1, ConstValue.GAME_BOSS_FIRST}
+	};
 }

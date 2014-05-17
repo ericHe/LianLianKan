@@ -40,10 +40,14 @@ public class ComBox : MonoBehaviour, IBox {
 	}
 
 	public void Explode(){
-		BoxManager.GetInstance().RemoveBox(this);
-		ParticleSystem ps = ExpParticleFactory.Instance().CreateExpParticel(transform.position);
-		//ps.transform.parent = transform.parent;
-		Destroy(gameObject);
-		ps.Play();
+		if(ice > 0){
+			ice = 0;
+		} else {
+			BoxManager.GetInstance().RemoveBox(this);
+			ParticleSystem ps = ExpParticleFactory.Instance().CreateExpParticel(transform.position);
+			//ps.transform.parent = transform.parent;
+			Destroy(gameObject);
+			ps.Play();
+		}
 	}
 }

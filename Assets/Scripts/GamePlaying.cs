@@ -21,7 +21,7 @@ public class GamePlaying : State<GameManager> {
 		Messenger.AddListener<GamePropsId>(ConstValue.MSG_USE_PROP, UseProp);
 		Messenger.AddListener<GamePropsId>(ConstValue.MSG_USE_PROP_CEL, UsePropCancel);
 
-		currentLevel = LoadLevel.CreateLevel(ConstValue.level);
+		currentLevel = ConstValue.currentLevel;
 		boxPanel = GameTools.CreateGameObject<BoxPanel>();
 		boxPanel.Init();
 		bBanner = GameObject.Instantiate(ResourceMgr.Instance().GetResFromName(ConstValue.GAME_B_BANNER),
